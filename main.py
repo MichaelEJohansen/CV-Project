@@ -11,7 +11,6 @@ from datetime import datetime, timedelta
 from flask import Flask
 import time
 import json
-
 app = Flask(__name__)
 
 @app.route("/myTweets")
@@ -22,17 +21,17 @@ def main():
 
 class TweetRetreiver:
     def __init__(self):
-        self.consumer_key = "xRdEidFY8tGyUk8bI1GNo3XeL"
-        self.consumer_secret = "yQ1kqwtg0pveQKNXJCC7KrWuKeZeakM1615EhMdswSc2cUKrUi"
-        self.access_token = "1184893494642561024-tkpuIBCreDuF5vOgBCz7ZG7TmEmrBH"
-        self.access_token_secret = "5DgxAa5kElMMCO8libTH4GDKECdWRdQ6iKeiVfdEiHw8c"
+        self.retreiveKeys('API-Keys.txt')
         self.tweets = []
         self.jsonTweets = []
     
-    ## TODO    
+    
     def retreiveKeys(self, fileName):
-        file = open(fileName)
-        keys = []
+        fileLines = open(fileName).read().splitlines()
+        self.consumer_key = fileLines[0]
+        self.consumer_secret = fileLines[1]
+        self.access_token = fileLines[2]
+        self.access_token_secret = fileLines[3]
         
     def retreiveTweets(self):
         auth = tw.OAuthHandler(self.consumer_key, self.consumer_secret)
@@ -56,3 +55,4 @@ class TweetRetreiver:
         
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
+    #main()
